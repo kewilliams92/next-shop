@@ -1,5 +1,6 @@
-//Option 1: fetch products on the server 
+//Option 1b: fetch products on the server 
 // but with Incremental Static Regeneration (in getStaticProps)
+//we get all the benefits of getStaticProps but we can update the data every X seconds. not ideal for SEO but good for dynamic data
 import Head from 'next/head'
 import Title from '../components/Title'
 import { GetStaticProps } from 'next'

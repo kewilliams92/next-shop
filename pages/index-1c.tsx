@@ -1,4 +1,5 @@
-//Option 1c: fetch products on the server (in getServerSideProps)
+//Option 1c: fetch products on the server (in getServerSideProps) (server side rendering)
+//data would be fetched on server at runtime. Updated on every request.
 import Head from 'next/head'
 import Title from '../components/Title'
 import { GetServerSideProps } from 'next'

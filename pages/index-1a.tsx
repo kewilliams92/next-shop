@@ -1,4 +1,5 @@
-//Option 1: fetch products on the server (in getStaticProps)
+//Option 1a: fetch products on the server (in getStaticProps) (Static generation)
+//product data is fetched at build time which is ideal for SEO/ never updated. not ideal for dynamic data
 import Head from 'next/head'
 import Title from '../components/Title'
 import { GetStaticProps } from 'next'

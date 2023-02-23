@@ -1,5 +1,6 @@
-//Option 2a: fetch products on the client (in useEffect)
+//Option 2a: fetch products on the Client-Side (in useEffect)
 //directly from an external API
+// if we want to fetch fresh data on every request
 import Head from 'next/head'
 import Title from '../components/Title'
 import { useState, useEffect } from 'react'

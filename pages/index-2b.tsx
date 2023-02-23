@@ -1,5 +1,6 @@
-//Option 2b: fetch products on the client (in useEffect)
+//Option 2b: fetch products on the Client-side + API Route (in useEffect)
 //from an internal API route
+//data fetched on client via server. Updated on every request.
 import Head from 'next/head'
 import Title from '../components/Title'
 import { useState, useEffect } from 'react'
