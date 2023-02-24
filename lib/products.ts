@@ -1,17 +1,28 @@
+import { fetchJson } from './api'
+
+const CMS_URL = process.env.CMS_URL;
+
 export interface Product {
     id: number;
     title: string;
+    description: string;
+}
+
+
+export async function getProduct(id: string): Promise<Product> {
+    const product = await fetchJson(`${CMS_URL}/products/${id}`);
+    return stripProduct(product);
+}
+
+export async function getProducts(): Promise<Product[]> {
+    const products = await fetchJson(`${CMS_URL}/products`);
+    return products.map(stripProduct);
 }
 
 function stripProduct(product: Product){
     return {
         id: product.id,
-        title: product.title
+        title: product.title,
+        description: product.description,
     };
-}
-
-export async function getProducts(): Promise<Product[]> {
-    const response = await fetch('http://localhost:1337/products');
-    const products = await response.json();
-    return products.map(stripProduct);
 }
