@@ -3,6 +3,8 @@ import { ParsedUrlQuery } from "querystring";
 import { getProduct, getProducts, Product } from "../../lib/products";
 import { GetStaticProps, GetStaticPaths } from "next";
 import { ApiError } from "../../lib/api";
+import AddToCartWidget from "../../components/AddToCartWidget";
+import { useUser } from "../../hooks/user";
 import Page from "../../components/Page";
 
 interface ProductPageParams extends ParsedUrlQuery {
@@ -45,6 +47,7 @@ export const getStaticProps: GetStaticProps<
 };
 
 const ProductPage: React.FC<ProductPageProps> = ({ product }) => {
+  const user = useUser();
   return (
     <Page title={product.title}>
         <div className="flex flex-col lg:flex-row">
@@ -56,6 +59,7 @@ const ProductPage: React.FC<ProductPageProps> = ({ product }) => {
             <p className="text-lg font-bold mt-2">
                 {product.price}
             </p>
+            {user && <AddToCartWidget productId={product.id} />}
           </div>
         </div>
     </Page>
