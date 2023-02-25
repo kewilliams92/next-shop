@@ -1,26 +1,9 @@
 import Link from "next/link";
-import { useState, useEffect } from "react";
-import { fetchJson } from "../lib/api";
-import { User } from "../lib/user"; //We need this interface in order to type the user state
+import { useUser, useSignOut } from "../hooks/user";
 
 const NavBar: React.FC = () => {
-    const [user, setUser] = useState<User>(); 
-
-    useEffect(() => {
-        (async () => {
-            try{
-            const user = await fetchJson("/api/user");
-            setUser(user);
-            } catch (err) {
-                //not signed in
-            }
-        })();
-    }, []);
-
-    const handleSignOut = async () => {
-        await fetchJson('/api/logout');
-        setUser(undefined);
-    }
+    const user = useUser();
+    const signOut = useSignOut();
 
     console.log('[NavBar] user:', user)
 
@@ -35,7 +18,7 @@ const NavBar: React.FC = () => {
           <>
             <li>{user.name}</li>
             <li>
-              <button onClick={handleSignOut}>Sign Out</button>
+              <button onClick={signOut}>Sign Out</button>
             </li>
           </>
         ) : (

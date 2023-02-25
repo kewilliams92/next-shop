@@ -4,28 +4,23 @@ import Field from "../components/Field";
 import Button from "../components/Button";
 import { useRouter } from "next/router";
 import { FormEventHandler, useState } from "react";
-import { fetchJson } from "../lib/api";
+import { useSignIn } from "../hooks/user";
 
 const SignInPage: React.FC = () => {
     const router = useRouter();
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
-    const [status, setStatus] = useState({ loading: false, error: false })
+    const { signIn, signInError, signInLoading} = useSignIn();
 
     const handleSubmit: FormEventHandler<HTMLFormElement> = async (e) =>{
         e.preventDefault();
-        setStatus({ loading: true, error: false });
         try{
-        const response = await fetchJson("/api/login", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ email, password }),
-        });
-        setStatus({ loading: false, error: false });
-        console.log("response from handleSubmit",response);
-        router.push("/");
+            const valid = await signIn(email, password);
+            if(valid){
+            router.push('/');
+            }
         } catch (err) {
-            setStatus({ loading: false, error: true });
+            //mutation.isError will be true
         }
     }
 
@@ -42,12 +37,12 @@ const SignInPage: React.FC = () => {
                     onChange={(e) => setPassword(e.target.value)}
                     />
                 </Field>
-                {status.error && (
+                {signInError && (
                     <p className="text-red-500 text-sm">
                         Invalid creditentials
                     </p>
                 )}
-                {status.loading ? (
+                {signInLoading ? (
                     <p className="text-gray-500 text-sm">
                         Loading...
                         </p>
